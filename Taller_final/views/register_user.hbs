@@ -1,0 +1,23 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+  </head>
+  <body id="body-register-user">
+    <div class="login-box-register">
+      <h1>Create account</h1>
+      <form id="crud_form">
+        <!-- USERNAME INPUT -->
+        <label for="username">Username</label>
+        <input type="text" name="userName" placeholder="Enter Username" />
+        <!-- PASSWORD INPUT -->
+        <label for="password">Password</label>
+        <input type="password" name="userPassword" placeholder="Enter Password" />
+        <button type="submit" onclick="register()" id="buttom_send">Register Now</button>
+      </form>
+    </div>
+    <script defer src="/javascripts/crud_user.js"></script>
+  </body>
+</html>

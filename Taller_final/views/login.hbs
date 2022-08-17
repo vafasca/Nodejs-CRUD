@@ -1,0 +1,24 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+  </head>
+  <body id="body-login">
+    <div class="login-box">
+      <h1>Login Bingo</h1>
+      <form id="crud_form">
+        <!-- USERNAME INPUT -->
+        <label for="username">Username</label>
+        <input type="text" name="userName" placeholder="Enter Username" />
+        <!-- PASSWORD INPUT -->
+        <label for="password">Password</label>
+        <input type="password" name="userPassword" placeholder="Enter Password" />
+        <input type="submit" id="login" value="Log In" />
+        <a href="http://localhost:4000/api/v1/register">Create account</a>
+      </form>
+    </div>
+    <script defer src="/javascripts/login.js"></script>
+  </body>
+</html>

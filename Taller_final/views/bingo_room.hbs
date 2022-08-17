@@ -1,0 +1,79 @@
+<!--Noah Peneycad 
+    CISC282 Assignment #4
+    April 10, 2017-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Bingo BRUNEX</title>
+        <meta charset="utf-8">
+        {{!-- <link rel="stylesheet" href="css/style.css"> --}}
+        <link rel='shortcut icon' type='image/x-icon' href='images/favicon.ico'>
+    </head>
+    <body onload="init()">
+        <div id="bingo-content">
+            <table id="bingo-card">
+                <tr>
+                    <th class="header">B</th>
+                    <th class="header">I</th>
+                    <th class="header">N</th>
+                    <th class="header">G</th>
+                    <th class="header">O</th>
+                </tr>
+                <tr>
+                    <td><input id="sq0" class="square" type="button" value="&nbsp;" onclick="markSquare('sq0')"></td>
+                    <td><input id="sq1" class="square" type="button" value="&nbsp;" onclick="markSquare('sq1')"></td>
+                    <td><input id="sq2" class="square" type="button" value="&nbsp;" onclick="markSquare('sq2')"></td>
+                    <td><input id="sq3" class="square" type="button" value="&nbsp;" onclick="markSquare('sq3')"></td>
+                    <td><input id="sq4" class="square" type="button" value="&nbsp;" onclick="markSquare('sq4')"></td>
+                </tr>
+                <tr>
+                    <td><input id="sq5" class="square" type="button" value="&nbsp;" onclick="markSquare('sq5')"></td>
+                    <td><input id="sq6" class="square" type="button" value="&nbsp;" onclick="markSquare('sq6')"></td>
+                    <td><input id="sq7" class="square" type="button" value="&nbsp;" onclick="markSquare('sq7')"></td>
+                    <td><input id="sq8" class="square" type="button" value="&nbsp;" onclick="markSquare('sq8')"></td>
+                    <td><input id="sq9" class="square" type="button" value="&nbsp;" onclick="markSquare('sq9')"></td>
+                </tr>
+                <tr>
+                    <td><input id="sq10" class="square" type="button" value="&nbsp;" onclick="markSquare('sq10')"></td>
+                    <td><input id="sq11" class="square" type="button" value="&nbsp;" onclick="markSquare('sq11')"></td>
+                    <td><input id="sq12" class="square" type="button" value="FREE" onclick="markSquare('sq12')"></td>
+                    <td><input id="sq13" class="square" type="button" value="&nbsp;" onclick="markSquare('sq13')"></td>
+                    <td><input id="sq14" class="square" type="button" value="&nbsp;" onclick="markSquare('sq14')"></td>
+                </tr>
+                <tr>
+                    <td><input id="sq15" class="square" type="button" value="&nbsp;" onclick="markSquare('sq15')"></td>
+                    <td><input id="sq16" class="square" type="button" value="&nbsp;" onclick="markSquare('sq16')"></td>
+                    <td><input id="sq17" class="square" type="button" value="&nbsp;" onclick="markSquare('sq17')"></td>
+                    <td><input id="sq18" class="square" type="button" value="&nbsp;" onclick="markSquare('sq18')"></td>
+                    <td><input id="sq19" class="square" type="button" value="&nbsp;" onclick="markSquare('sq19')"></td>
+                </tr>
+                <tr>
+                    <td><input id="sq20" class="square" type="button" value="&nbsp;" onclick="markSquare('sq20')"></td>
+                    <td><input id="sq21" class="square" type="button" value="&nbsp;" onclick="markSquare('sq21')"></td>
+                    <td><input id="sq22" class="square" type="button" value="&nbsp;" onclick="markSquare('sq22')"></td>
+                    <td><input id="sq23" class="square" type="button" value="&nbsp;" onclick="markSquare('sq23')"></td>
+                    <td><input id="sq24" class="square" type="button" value="&nbsp;" onclick="markSquare('sq24')"></td>
+                </tr>
+            </table>
+        </div>
+        <div id="buttons">
+            {{!-- <div id="goals">
+                <p>Goals: 
+                    <input type="button" class="button" name="line" id="bLine" value="Line" onclick="lineBingo()">
+                    <input type="button" class="button" name="full" id="bFull" value="Full Card" onclick="fullBingo()">
+                </p>
+            </div> --}}
+            <div id="actions">
+                <p>Actions: 
+                    <input type="button" class="button" name="call" id="bCall" value="Call" onclick="callNumber()">
+                    <input type="button" class="button" name="bingo" id="bBingo" value="Bingo" onclick="checkForBingo()">
+                </p>
+            </div>
+            <p>Current Call: <p id="currentCall">&nbsp;</p></p>
+            <p>Called Numbers: </p>
+            <p id="calledNums">None</p>
+        </div>
+        {{!-- <p><a href="#" onclick="generateAnotherCard()">Click here</a> to generate a new card</p> --}}
+        <script src="/javascripts/carton_bingo.js"></script>
+    </body>
+</html>
