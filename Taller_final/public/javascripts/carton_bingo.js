@@ -7,15 +7,17 @@ function init() {
     generateNewCard();
 }
 
-const saveBalotas = () => {
-    fetch("http://localhost:9090/api/v1/room",//cambiar por el api que va a guardar las balotas
+const saveBalotas = (newNumber) => {
+    fetch("http://localhost:9090/api/v1/cartonBingo",
     {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        method: "POST"
-        //body: JSON.stringify({a: 1, b: 2}) //aqui los valores valores que va a tener la balota
+        method: "POST",
+        body: JSON.stringify({
+            cartBalota: newNumber
+        })
     })
     .then(function(res){ console.log(res) })
     .catch(function(res){ console.log(res) });
@@ -38,15 +40,19 @@ function generateSquare(squareNum) {
     var baseNumbers = new Array(0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4);
     // generates random number for each square (depends on column)
     var newNumber = (baseNumbers[squareNum] * 15) + generateNewNum();
-    console.log("newnumber "+((baseNumbers[squareNum] * 15) + generateNewNum()));
+    //mando la balota a la bd
+    console.log("ACACACAaaaaaaaaaapppp"+ newNumber)
+    saveBalotas(newNumber);
     // loop makes sure there are no duplicates
     while (usedNumbers[newNumber] == true) {
         newNumber = (baseNumbers[squareNum] * 15) + generateNewNum();
+        console.log("REPETIDO NO ENTRA ACA WHILE"+ newNumber)
     }
     // sets the used number in the array as true so no duplicates
     usedNumbers[newNumber] = true;
     // sets the current square to the new number
     document.getElementById(currentSquare).value = newNumber;
+    //saveBalotas(newNumber);
 }
 function generateNewNum() {
     // generates a random numbers between 1 and 15
@@ -62,11 +68,11 @@ function resetUsedNumbers() {
 }
 
 // when clicked, generates a new random card
-function generateAnotherCard() {
-    resetUsedNumbers();
-    generateNewCard();
-    resetSquareColours();
-}
+// function generateAnotherCard() {
+//     resetUsedNumbers();
+//     generateNewCard();
+//     resetSquareColours();
+// }
 
 // resets all squares except FREE to white
 function resetSquareColours() {
