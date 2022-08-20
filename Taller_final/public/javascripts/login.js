@@ -11,7 +11,7 @@
                     if ((e.target.userName.value == completedata.data[index].userName) & (e.target.userPassword.value === completedata.data[index].userPassword)) {
                         status = true;
                         idPlayer = completedata.data[index]._id;
-                        console.log(idPlayer);
+                        //console.log(idPlayer);
                     }   
                 }
                 if (status == true) {

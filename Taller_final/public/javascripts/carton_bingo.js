@@ -2,25 +2,118 @@
 var usedNumbers = new Array(76);
 var calledNumbers = new Array();
 var goal = "line";
+//
+
 
 function init() {
     generateNewCard();
+    //prueba();
 }
 
+const saveData = () => {
+    const listB = new Array();
+    const listI = new Array();
+    const listN = new Array();
+    const listG = new Array();
+    const listO = new Array();
+    //window.alert("Se esta ejecutando la prueba");
+    fetch('http://localhost:9090/api/v1/playerBingo/62fc4da0278bd830f26a973a').then((data) => {
+        var idPlayer;
+        console.log(data);
+        return data.json();
+    }).then((completedata) => {
+        // if (squareNum < 12) {
+        //     // document.getElementById(currentSquare).value = completedata.data.cartonBingos[squareNum].cartBalota;
+        //     // console.log("[ "+squareNum+"] "+completedata.data.cartonBingos[squareNum].cartBalota);
+        // } else if (squareNum > 12) {
+        //     squareNum = squareNum - 1;
+        //     // document.getElementById(currentSquare).value = completedata.data.cartonBingos[squareNum].cartBalota;
+        //     // console.log("[ "+squareNum+"] "+completedata.data.cartonBingos[squareNum].cartBalota);
+        // }
+        //PRUEBA UNA MAS
+        //location.reload();
+        for (var squareNum = 0; squareNum < 24; squareNum++) {
+            //var currentSquare = "sq" + squareNum;
+
+                //********************************/
+                //FUNCIONANDO MEJOR
+                //console.log(completedata.data);
+                if (completedata.data.cartonBingos[squareNum].cartBalota <= 15) {
+                    listB.push(completedata.data.cartonBingos[squareNum].cartBalota);
+                    //listB[squareNum] = completedata.data.cartonBingos[squareNum].cartBalota;
+                } else if (completedata.data.cartonBingos[squareNum].cartBalota >= 16 && completedata.data.cartonBingos[squareNum].cartBalota <= 30) {
+                    listI.push(completedata.data.cartonBingos[squareNum].cartBalota);
+                    //listI[squareNum] = completedata.data.cartonBingos[squareNum].cartBalota;
+                } else if (completedata.data.cartonBingos[squareNum].cartBalota >= 31 && completedata.data.cartonBingos[squareNum].cartBalota <= 45) {
+                    listN.push(completedata.data.cartonBingos[squareNum].cartBalota);
+                    //listN[squareNum] = completedata.data.cartonBingos[squareNum].cartBalota;
+                } else if (completedata.data.cartonBingos[squareNum].cartBalota >= 46 && completedata.data.cartonBingos[squareNum].cartBalota <= 60) {
+                    listG.push(completedata.data.cartonBingos[squareNum].cartBalota);
+                    //listG[squareNum] = completedata.data.cartonBingos[squareNum].cartBalota;
+                } else if (completedata.data.cartonBingos[squareNum].cartBalota >= 61 && completedata.data.cartonBingos[squareNum].cartBalota <= 75) {
+                    listO.push(completedata.data.cartonBingos[squareNum].cartBalota);
+                    //listO[squareNum] = completedata.data.cartonBingos[squareNum].cartBalota;
+                }
+
+
+        }
+        //location.reload();
+        console.log(listB)
+        console.log("TAMANIOOOOOOOOOOOOOOOOOOOO"+listB.length)
+        loadCarton(listB, listI, listN, listG, listO);
+
+    });
+}
+
+const loadCarton = (listB, listI, listN, listG, listO) => {
+    //PARA B
+    document.getElementById("sq0").value = listB[0];
+    document.getElementById("sq5").value = listB[1];
+    document.getElementById("sq10").value = listB[2];
+    document.getElementById("sq15").value = listB[3];
+    document.getElementById("sq20").value = listB[4];
+    //PARA I
+    document.getElementById("sq1").value = listI[0];
+    document.getElementById("sq6").value = listI[1];
+    document.getElementById("sq11").value = listI[2];
+    document.getElementById("sq16").value = listI[3];
+    document.getElementById("sq21").value = listI[4];
+    //PARA N
+    document.getElementById("sq2").value = listN[0];
+    document.getElementById("sq7").value = listN[1];
+    //document.getElementById("sq12").value = listN[2];
+    document.getElementById("sq17").value = listN[2];
+    document.getElementById("sq22").value = listN[3];
+    //PARA G
+    document.getElementById("sq3").value = listG[0];
+    document.getElementById("sq8").value = listG[1];
+    document.getElementById("sq13").value = listG[2];
+    document.getElementById("sq18").value = listG[3];
+    document.getElementById("sq23").value = listG[4];
+    //PARA O
+    document.getElementById("sq4").value = listO[0];
+    document.getElementById("sq9").value = listO[1];
+    document.getElementById("sq14").value = listO[2];
+    document.getElementById("sq19").value = listO[3];
+    document.getElementById("sq24").value = listO[4];
+}
+
+
 const saveBalotas = (newNumber) => {
+    console.log("ENTRANDO A LA BD: " + newNumber);
     fetch("http://localhost:9090/api/v1/cartonBingo",
-    {
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        method: "POST",
-        body: JSON.stringify({
-            cartBalota: newNumber
+        {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify({
+                cartBalota: newNumber
+            })
         })
-    })
-    .then(function(res){ console.log(res) })
-    .catch(function(res){ console.log(res) });
+        .then(function (res) { console.log(res) })
+        .catch(function (res) { console.log(res) });
 }
 
 function generateNewCard() {
@@ -33,32 +126,35 @@ function generateNewCard() {
         // generates a number for each square
         generateSquare(i);
     }
+    saveData();
 }
 function generateSquare(squareNum) {
     var currentSquare = "sq" + squareNum;
     // array of column numbers
-    var baseNumbers = new Array(0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4);
+    var baseNumbers = new Array(0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 0, 1, 2, 3, 4);
     // generates random number for each square (depends on column)
     var newNumber = (baseNumbers[squareNum] * 15) + generateNewNum();
-    //mando la balota a la bd
-    console.log("ACACACAaaaaaaaaaapppp"+ newNumber)
-    saveBalotas(newNumber);
+
     // loop makes sure there are no duplicates
     while (usedNumbers[newNumber] == true) {
         newNumber = (baseNumbers[squareNum] * 15) + generateNewNum();
-        console.log("REPETIDO NO ENTRA ACA WHILE"+ newNumber)
     }
     // sets the used number in the array as true so no duplicates
     usedNumbers[newNumber] = true;
+    //
+    //mando la balota a la bd
+    console.log("square num: " + squareNum);
+    console.log("NUMERO A GUARDAR: " + newNumber);
     // sets the current square to the new number
-    document.getElementById(currentSquare).value = newNumber;
+    saveBalotas(newNumber);
+    //document.getElementById(currentSquare).value = newNumber;
+    console.log("numero que muestra en el value" + newNumber);
     //saveBalotas(newNumber);
 }
 function generateNewNum() {
     // generates a random numbers between 1 and 15
     var numeror = Math.floor((Math.random() * 15) + 1);
-    console.log("numero r"+numeror);
-    return numeror //15
+    return numeror
 }
 function resetUsedNumbers() {
     // sets all elements of the usedNumbers array to false (resets the array)
@@ -87,7 +183,7 @@ function resetSquareColours() {
 
 function markSquare(square) {
     var currentSquare = document.getElementById(square);
-    if (currentSquare.style.backgroundColor == "lightblue") 
+    if (currentSquare.style.backgroundColor == "lightblue")
         currentSquare.style.backgroundColor = "#ffffff";
     else
         currentSquare.style.backgroundColor = "lightblue";
@@ -112,7 +208,7 @@ function callNumber() {
         else
             document.getElementById("currentCall").innerHTML = 'O' + rand;
         document.getElementById("calledNums").innerHTML = calledNumbers;
-    } 
+    }
 }
 
 function lineBingo() {
@@ -159,36 +255,36 @@ function checkVerticalBingo() {
 function checkHorizontalBingo() {
     j = 0;
     for (var i = 0; i < 5; i++) {
-        switch(i) {
-            case 0: 
+        switch (i) {
+            case 0:
                 var sq1 = document.getElementById('sq' + i);
                 var sq2 = document.getElementById('sq' + (i + 1));
                 var sq3 = document.getElementById('sq' + (i + 2));
                 var sq4 = document.getElementById('sq' + (i + 3));
                 var sq5 = document.getElementById('sq' + (i + 4));
                 break;
-            case 1: 
+            case 1:
                 var sq1 = document.getElementById('sq' + (i + 4));
                 var sq2 = document.getElementById('sq' + (i + 5));
                 var sq3 = document.getElementById('sq' + (i + 6));
                 var sq4 = document.getElementById('sq' + (i + 7));
                 var sq5 = document.getElementById('sq' + (i + 8));
                 break;
-            case 2: 
+            case 2:
                 var sq1 = document.getElementById('sq' + (i + 8));
                 var sq2 = document.getElementById('sq' + (i + 9));
                 var sq3 = document.getElementById('sq' + (i + 10));
                 var sq4 = document.getElementById('sq' + (i + 11));
                 var sq5 = document.getElementById('sq' + (i + 12));
                 break;
-            case 3: 
+            case 3:
                 var sq1 = document.getElementById('sq' + (i + 12));
                 var sq2 = document.getElementById('sq' + (i + 13));
                 var sq3 = document.getElementById('sq' + (i + 14));
                 var sq4 = document.getElementById('sq' + (i + 15));
                 var sq5 = document.getElementById('sq' + (i + 16));
                 break;
-            case 4: 
+            case 4:
                 var sq1 = document.getElementById('sq' + (i + 16));
                 var sq2 = document.getElementById('sq' + (i + 17));
                 var sq3 = document.getElementById('sq' + (i + 18));
@@ -202,7 +298,7 @@ function checkHorizontalBingo() {
 
 function checkDiagonalBingo() {
     for (var i = 0; i < 2; i++) {
-        switch(i) {
+        switch (i) {
             case 0:
                 var sq1 = document.getElementById('sq' + 0);
                 var sq2 = document.getElementById('sq' + 6);
@@ -229,11 +325,11 @@ function checkCornersBingo() {
     var sq4 = document.getElementById('sq' + 24);
 
     if (sq1.style.backgroundColor == "lightblue" && calledNumbers.includes(parseInt(sq1.value)) &&
-            sq2.style.backgroundColor == "lightblue" && calledNumbers.includes(parseInt(sq2.value)) &&
-            sq3.style.backgroundColor == "lightblue" && calledNumbers.includes(parseInt(sq3.value)) &&
-            sq4.style.backgroundColor == "lightblue" && calledNumbers.includes(parseInt(sq4.value))) {
-                youWinCorners(sq1, sq2, sq3, sq4);
-                return;
+        sq2.style.backgroundColor == "lightblue" && calledNumbers.includes(parseInt(sq2.value)) &&
+        sq3.style.backgroundColor == "lightblue" && calledNumbers.includes(parseInt(sq3.value)) &&
+        sq4.style.backgroundColor == "lightblue" && calledNumbers.includes(parseInt(sq4.value))) {
+        youWinCorners(sq1, sq2, sq3, sq4);
+        return;
     }
     else {
         document.getElementById("currentCall").innerHTML = "Not a valid bingo! Keep trying!";
@@ -261,14 +357,14 @@ function checkFullBingo() {
             sq3.style.backgroundColor == "lightblue" && calledNumbers.includes(parseInt(sq3.value)) &&
             sq4.style.backgroundColor == "lightblue" && calledNumbers.includes(parseInt(sq4.value)) &&
             sq5.style.backgroundColor == "lightblue" && calledNumbers.includes(parseInt(sq5.value))) {
-                flag = true;
+            flag = true;
         }
         else if (sq1.style.backgroundColor == "lightblue" && calledNumbers.includes(parseInt(sq1.value)) &&
             sq2.style.backgroundColor == "lightblue" && calledNumbers.includes(parseInt(sq2.value)) &&
             sq3.value == "FREE" &&
             sq4.style.backgroundColor == "lightblue" && calledNumbers.includes(parseInt(sq4.value)) &&
             sq5.style.backgroundColor == "lightblue" && calledNumbers.includes(parseInt(sq5.value))) {
-                flag = true;
+            flag = true;
         }
         else {
             flag = false;
@@ -290,16 +386,16 @@ function checkLines(sq1, sq2, sq3, sq4, sq5) {
         sq3.value == "FREE" &&
         sq4.style.backgroundColor == "lightblue" && calledNumbers.includes(parseInt(sq4.value)) &&
         sq5.style.backgroundColor == "lightblue" && calledNumbers.includes(parseInt(sq5.value))) {
-            youWin(sq1, sq2, sq3, sq4, sq5);
-            return;
+        youWin(sq1, sq2, sq3, sq4, sq5);
+        return;
     }
     else if (sq1.style.backgroundColor == "lightblue" && calledNumbers.includes(parseInt(sq1.value)) &&
-            sq2.style.backgroundColor == "lightblue" && calledNumbers.includes(parseInt(sq2.value)) &&
-            sq3.style.backgroundColor == "lightblue" && calledNumbers.includes(parseInt(sq3.value)) &&
-            sq4.style.backgroundColor == "lightblue" && calledNumbers.includes(parseInt(sq4.value)) &&
-            sq5.style.backgroundColor == "lightblue" && calledNumbers.includes(parseInt(sq5.value))) {
-                youWin(sq1, sq2, sq3, sq4, sq5);
-                return;
+        sq2.style.backgroundColor == "lightblue" && calledNumbers.includes(parseInt(sq2.value)) &&
+        sq3.style.backgroundColor == "lightblue" && calledNumbers.includes(parseInt(sq3.value)) &&
+        sq4.style.backgroundColor == "lightblue" && calledNumbers.includes(parseInt(sq4.value)) &&
+        sq5.style.backgroundColor == "lightblue" && calledNumbers.includes(parseInt(sq5.value))) {
+        youWin(sq1, sq2, sq3, sq4, sq5);
+        return;
     }
     else {
         document.getElementById("currentCall").innerHTML = "Not a valid bingo! Keep trying!";
