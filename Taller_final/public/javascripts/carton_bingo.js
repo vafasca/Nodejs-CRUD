@@ -7,17 +7,19 @@ var goal = "line";
 
 function init() {
     generateNewCard();
-    //prueba();
+    setTimeout(() => {
+        getData();
+    }, 1500);
 }
 
-const saveData = () => {
+const getData = () => {
     const listB = new Array();
     const listI = new Array();
     const listN = new Array();
     const listG = new Array();
     const listO = new Array();
     //window.alert("Se esta ejecutando la prueba");
-    fetch('http://localhost:9090/api/v1/playerBingo/62fc4da0278bd830f26a973a').then((data) => {
+    fetch('http://localhost:9090/api/v1/playerBingo/6303cae23434532002f68d29').then((data) => {
         var idPlayer;
         console.log(data);
         return data.json();
@@ -126,7 +128,7 @@ function generateNewCard() {
         // generates a number for each square
         generateSquare(i);
     }
-    saveData();
+    //getData();
 }
 function generateSquare(squareNum) {
     var currentSquare = "sq" + squareNum;
