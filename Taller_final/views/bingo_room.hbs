@@ -9,7 +9,7 @@
         {{!-- <link rel="stylesheet" href="css/style.css"> --}}
         <link rel='shortcut icon' type='image/x-icon' href='images/favicon.ico'>
     </head>
-    <body onload="init()">
+    <body onload="reloadPage()">
         <div id="bingo-content">
             <table id="bingo-card">
                 <tr>
@@ -75,7 +75,7 @@
         </div>
         {{!-- <p><a href="#" onclick="generateAnotherCard()">Click here</a> to generate a new card</p> --}}
         <button onclick="reloadPage()" id="createCard" class="createCard">Create Card</button>
-        <script src="/javascripts/carton_bingo.js"></script>
-        {{!-- <script defer src="/javascripts/login.js"></script> --}}
+        <script defer src="/javascripts/carton_bingo.js"></script>
+        <script defer src="/javascripts/login.js"></script>
     </body>
 </html>

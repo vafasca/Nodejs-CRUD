@@ -1,31 +1,52 @@
 // 75 possible numbers
-var usedNumbers = new Array(76);
-var calledNumbers = new Array();
-var goal = "line";
+//var usedNumbers = new Array(76);
+//var calledNumbers = new Array();
+//var goal = "line";
 //
 
 
-function init() {
-    //generateNewCard();
-    setTimeout(() => {
-        getData();
-    }, 1500);
-}
+// function init() {
+//     //generateNewCard();
+//     setTimeout(() => {
+//         getData();
+//     }, 1500);
+// }
 
 const reloadPage = () => {
-    generateNewCard();
-    init();
+    // getvals().then(response => {
+    //     console.log(response[0].title);
+    //     getData();
+    // });
+    let idPlayer = localStorage.getItem('id');
+    window.alert(localStorage.getItem('id'));
+    getData(idPlayer);
 }
+// function getvals() {
+//     return fetch('https://jsonplaceholder.typicode.com/posts',
+//         {
+//             method: "GET",
+//             headers: {
+//                 'Accept': 'application/json',
+//                 'Content-Type': 'application/json',
+//             },
+//         })
+//         .then((response) => response.json())
+//         .then((responseData) => {
+//             console.log(responseData);
+//             return responseData;
+//         })
+//         .catch(error => console.warn(error));
+// }
 
-const getData = () => {
+const getData = (idPlayer) => {
+    window.alert("desde getData" + idPlayer);
     const listB = new Array();
     const listI = new Array();
     const listN = new Array();
     const listG = new Array();
     const listO = new Array();
     //window.alert("Se esta ejecutando la prueba");
-    fetch('http://localhost:9090/api/v1/playerBingo/6303cae23434532002f68d29').then((data) => {
-        var idPlayer;
+    fetch(`http://localhost:9090/api/v1/playerBingo/${idPlayer}`).then((data) => {
         console.log(data);
         return data.json();
     }).then((completedata) => {
@@ -42,37 +63,43 @@ const getData = () => {
         for (var squareNum = 0; squareNum < 24; squareNum++) {
             //var currentSquare = "sq" + squareNum;
 
-                //********************************/
-                //FUNCIONANDO MEJOR
-                //console.log(completedata.data);
-                if (completedata.data.cartonBingos[squareNum].cartBalota <= 15) {
-                    listB.push(completedata.data.cartonBingos[squareNum].cartBalota);
-                    //listB[squareNum] = completedata.data.cartonBingos[squareNum].cartBalota;
-                } else if (completedata.data.cartonBingos[squareNum].cartBalota >= 16 && completedata.data.cartonBingos[squareNum].cartBalota <= 30) {
-                    listI.push(completedata.data.cartonBingos[squareNum].cartBalota);
-                    //listI[squareNum] = completedata.data.cartonBingos[squareNum].cartBalota;
-                } else if (completedata.data.cartonBingos[squareNum].cartBalota >= 31 && completedata.data.cartonBingos[squareNum].cartBalota <= 45) {
-                    listN.push(completedata.data.cartonBingos[squareNum].cartBalota);
-                    //listN[squareNum] = completedata.data.cartonBingos[squareNum].cartBalota;
-                } else if (completedata.data.cartonBingos[squareNum].cartBalota >= 46 && completedata.data.cartonBingos[squareNum].cartBalota <= 60) {
-                    listG.push(completedata.data.cartonBingos[squareNum].cartBalota);
-                    //listG[squareNum] = completedata.data.cartonBingos[squareNum].cartBalota;
-                } else if (completedata.data.cartonBingos[squareNum].cartBalota >= 61 && completedata.data.cartonBingos[squareNum].cartBalota <= 75) {
-                    listO.push(completedata.data.cartonBingos[squareNum].cartBalota);
-                    //listO[squareNum] = completedata.data.cartonBingos[squareNum].cartBalota;
-                }
+            //********************************/
+            //FUNCIONANDO MEJOR
+            //console.log(completedata.data);
+            if (completedata.data.cartonBingos[squareNum].cartBalota <= 15) {
+                listB.push(completedata.data.cartonBingos[squareNum].cartBalota);
+                //listB[squareNum] = completedata.data.cartonBingos[squareNum].cartBalota;
+            } else if (completedata.data.cartonBingos[squareNum].cartBalota >= 16 && completedata.data.cartonBingos[squareNum].cartBalota <= 30) {
+                listI.push(completedata.data.cartonBingos[squareNum].cartBalota);
+                //listI[squareNum] = completedata.data.cartonBingos[squareNum].cartBalota;
+            } else if (completedata.data.cartonBingos[squareNum].cartBalota >= 31 && completedata.data.cartonBingos[squareNum].cartBalota <= 45) {
+                listN.push(completedata.data.cartonBingos[squareNum].cartBalota);
+                //listN[squareNum] = completedata.data.cartonBingos[squareNum].cartBalota;
+            } else if (completedata.data.cartonBingos[squareNum].cartBalota >= 46 && completedata.data.cartonBingos[squareNum].cartBalota <= 60) {
+                listG.push(completedata.data.cartonBingos[squareNum].cartBalota);
+                //listG[squareNum] = completedata.data.cartonBingos[squareNum].cartBalota;
+            } else if (completedata.data.cartonBingos[squareNum].cartBalota >= 61 && completedata.data.cartonBingos[squareNum].cartBalota <= 75) {
+                listO.push(completedata.data.cartonBingos[squareNum].cartBalota);
+                //listO[squareNum] = completedata.data.cartonBingos[squareNum].cartBalota;
+            }
 
 
         }
         //location.reload();
-        console.log(listB)
-        console.log("TAMANIOOOOOOOOOOOOOOOOOOOO"+listB.length)
+        console.log(listB);
+        console.log(listI);
+        console.log(listN);
+        console.log(listG);
+        console.log(listO);
+        console.log("TAMANIOOOOOOOOOOOOOOOOOOOO" + listB.length)
         loadCarton(listB, listI, listN, listG, listO);
 
     });
 }
 
 const loadCarton = (listB, listI, listN, listG, listO) => {
+    window.alert("desde loadCarton");
+
     //PARA B
     document.getElementById("sq0").value = listB[0];
     document.getElementById("sq5").value = listB[1];
@@ -123,19 +150,21 @@ const saveBalotas = (newNumber) => {
         .catch(function (res) { console.log(res) });
 }
 
-function generateNewCard() {
+function generateNewCard(idPlayer) {
+    window.alert(idPlayer);
+    var usedNumbers = new Array(76);
     // set all elements in usedNumbers array as false
-    resetUsedNumbers();
+    resetUsedNumbers(usedNumbers);
     // loops 24 times because there are 24 squares (not including free square)
     for (var i = 0; i < 25; i++) {
         if (i == 12) // skip free square
             continue;
         // generates a number for each square
-        generateSquare(i);
+        generateSquare(i, usedNumbers);
     }
     //getData();
 }
-function generateSquare(squareNum) {
+function generateSquare(squareNum, usedNumbers) {
     var currentSquare = "sq" + squareNum;
     // array of column numbers
     var baseNumbers = new Array(0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 0, 1, 2, 3, 4);
@@ -163,7 +192,7 @@ function generateNewNum() {
     var numeror = Math.floor((Math.random() * 15) + 1);
     return numeror
 }
-function resetUsedNumbers() {
+function resetUsedNumbers(usedNumbers) {
     // sets all elements of the usedNumbers array to false (resets the array)
     for (var i = 0; i < usedNumbers.length; i++) {
         usedNumbers[i] = false;
