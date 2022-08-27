@@ -1,45 +1,11 @@
-// 75 possible numbers
-//var usedNumbers = new Array(76);
-//var calledNumbers = new Array();
-//var goal = "line";
-//
-
-
-// function init() {
-//     //generateNewCard();
-//     setTimeout(() => {
-//         getData();
-//     }, 1500);
-// }
-
 const reloadPage = () => {
-    // getvals().then(response => {
-    //     console.log(response[0].title);
-    //     getData();
-    // });
-    let idPlayer = localStorage.getItem('id');
-    window.alert(localStorage.getItem('id'));
-    getData(idPlayer);
+    let idLocalStorage = localStorage.getItem('id');
+    window.alert(idLocalStorage);
+    getData(idLocalStorage);
 }
-// function getvals() {
-//     return fetch('https://jsonplaceholder.typicode.com/posts',
-//         {
-//             method: "GET",
-//             headers: {
-//                 'Accept': 'application/json',
-//                 'Content-Type': 'application/json',
-//             },
-//         })
-//         .then((response) => response.json())
-//         .then((responseData) => {
-//             console.log(responseData);
-//             return responseData;
-//         })
-//         .catch(error => console.warn(error));
-// }
+
 
 const getData = (idPlayer) => {
-    window.alert("desde getData" + idPlayer);
     const listB = new Array();
     const listI = new Array();
     const listN = new Array();
@@ -50,22 +16,7 @@ const getData = (idPlayer) => {
         console.log(data);
         return data.json();
     }).then((completedata) => {
-        // if (squareNum < 12) {
-        //     // document.getElementById(currentSquare).value = completedata.data.cartonBingos[squareNum].cartBalota;
-        //     // console.log("[ "+squareNum+"] "+completedata.data.cartonBingos[squareNum].cartBalota);
-        // } else if (squareNum > 12) {
-        //     squareNum = squareNum - 1;
-        //     // document.getElementById(currentSquare).value = completedata.data.cartonBingos[squareNum].cartBalota;
-        //     // console.log("[ "+squareNum+"] "+completedata.data.cartonBingos[squareNum].cartBalota);
-        // }
-        //PRUEBA UNA MAS
-        //location.reload();
         for (var squareNum = 0; squareNum < 24; squareNum++) {
-            //var currentSquare = "sq" + squareNum;
-
-            //********************************/
-            //FUNCIONANDO MEJOR
-            //console.log(completedata.data);
             if (completedata.data.cartonBingos[squareNum].cartBalota <= 15) {
                 listB.push(completedata.data.cartonBingos[squareNum].cartBalota);
                 //listB[squareNum] = completedata.data.cartonBingos[squareNum].cartBalota;
@@ -85,20 +36,11 @@ const getData = (idPlayer) => {
 
 
         }
-        //location.reload();
-        console.log(listB);
-        console.log(listI);
-        console.log(listN);
-        console.log(listG);
-        console.log(listO);
-        console.log("TAMANIOOOOOOOOOOOOOOOOOOOO" + listB.length)
         loadCarton(listB, listI, listN, listG, listO);
-
     });
 }
 
 const loadCarton = (listB, listI, listN, listG, listO) => {
-    window.alert("desde loadCarton");
 
     //PARA B
     document.getElementById("sq0").value = listB[0];
@@ -151,8 +93,8 @@ const saveBalotas = (newNumber) => {
 }
 
 function generateNewCard(idPlayer) {
-    window.alert(idPlayer);
     var usedNumbers = new Array(76);
+    console.log(usedNumbers);
     // set all elements in usedNumbers array as false
     resetUsedNumbers(usedNumbers);
     // loops 24 times because there are 24 squares (not including free square)

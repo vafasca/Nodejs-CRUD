@@ -2,7 +2,6 @@
 document.addEventListener("submit", async e => {
     e.preventDefault();
     fetch('http://localhost:4000/api/v1/users').then((data) => {
-        // console.log((data));
         var idPlayer;
         return data.json();
     }).then((completedata) => {
@@ -12,56 +11,40 @@ document.addEventListener("submit", async e => {
                 status = true;
                 idPlayer = completedata.data[index]._id;
                 localStorage.setItem('id', completedata.data[index]._id);
-                //console.log(idPlayer);
+
             }
         }
         if (status == true) {
-            createNewRoom();
             window.alert('Welcome');
-            registerPlayer(idPlayer);
-            //getData();
-            generateNewCard(idPlayer);
+            getBalota(idPlayer).then(response => {
+                window.alert("tiene: "+response.data.cartonBingos.length);
+                if (response.data.cartonBingos.length == 0) {
+                    window.alert("entro al if");
+                    generateNewCard(idPlayer);
+                }
+            });
             window.location = (`http://localhost:4000/api/v1/room/${idPlayer}`);//aqui agregar link de la sala creada
-            window.alert("despues del location");
-
-            //getData(idPlayer);
         } else {
             window.alert('User / Password incorrect');
             window.location.replace('http://localhost:4000/api/v1/login');
         }
-            // setTimeout(() => {
-            //     getData(idPlayer);
-            // }, 1500);
-        //getData(idPlayer);
-        
     });
 });
 
-const createNewRoom = () => {
-    fetch("http://localhost:9090/api/v1/room",
+function getBalota(idPlayer) {
+    console.log("HOLA"+localStorage.getItem('id'));
+    return fetch(`http://localhost:9090/api/v1/playerBingo/${idPlayer}`,
         {
+            method: "GET",
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            method: "POST"
         })
-        .then(function (res) { console.log(res) })
-        .catch(function (res) { console.log(res) });
-}
-
-const registerPlayer = (idUser) => {
-    fetch("http://localhost:9090/api/v1/newPlayer",
-        {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            method: "POST",
-            body: JSON.stringify({ playMongoId: idUser }),
+        .then((response) => response.json())
+        .then((responseData) => {
+            console.log(responseData);
+            return responseData;
         })
-        .then(function (res) { console.log(res) })
-        .catch(function (res) { console.log(res) });
+        .catch(error => console.warn(error));
 }
-
-    //--------------------------------------------------------------------------
