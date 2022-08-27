@@ -27,17 +27,20 @@ const register = async () => {
                         //
                         createNewRoom();
                         getvals().then(response => {
-                            window.alert("tamanio del arreglo"+response.data.length);
+                            window.alert("tamanio del arreglo" + response.data.length);
                             for (let index = 0; index < response.data.length; index++) {
                                 var idd = response.data[index]._id;
-                                
+
                                 localStorage.setItem('idMongo', idd);
                             }
                             var idPlayerMongo = localStorage.getItem('idMongo');
                             registerPlayer(idPlayerMongo);
                         });
                         window.alert('User created successfully');
-                        //window.location.replace("http://localhost:4000/api/v1/login");
+                            setTimeout(() => {
+                                window.location.replace("http://localhost:4000/api/v1/login");
+                            }, 1500);
+                        
                     });
                 //
 
