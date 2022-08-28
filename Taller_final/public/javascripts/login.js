@@ -17,9 +17,7 @@ document.addEventListener("submit", async e => {
         if (status == true) {
             window.alert('Welcome');
             getBalota(idPlayer).then(response => {
-                window.alert("tiene: "+response.data.cartonBingos.length);
                 if (response.data.cartonBingos.length == 0) {
-                    window.alert("entro al if");
                     generateNewCard(idPlayer);
                 }
             });
@@ -53,15 +51,15 @@ function getBalota(idPlayer) {
 }
 
 function generateNewCard(idPlayer) {
+    let newNumber = 0;
     // B
     let listB = new Array();
-    let newNumber = 0;
     for (var i = 0; i < 5;) {// i=1
         let count = 0;
         newNumber = Math.round(Math.random()*(15-1)+parseInt(1));
         if (listB.length == 0) {
             listB.push(newNumber);
-            saveBalotas(newNumber);
+            //saveBalotas(newNumber);
             i++;
         }else{
                 do {
@@ -75,7 +73,7 @@ function generateNewCard(idPlayer) {
                 } while (count >= 1);
                 if (count == 0) {
                     listB.push(newNumber);
-                    saveBalotas(newNumber);
+                    //saveBalotas(newNumber);
                     i++;
                 }
             }
@@ -88,7 +86,7 @@ function generateNewCard(idPlayer) {
         newNumber = Math.round(Math.random()*(30-16)+parseInt(16));
         if (listI.length == 0) {    
             listI.push(newNumber);
-            saveBalotas(newNumber);
+            //saveBalotas(newNumber);
             i++;
         }else{
                 do {
@@ -102,7 +100,7 @@ function generateNewCard(idPlayer) {
                 } while (count >= 1);
                 if (count == 0) {
                     listI.push(newNumber);
-                    saveBalotas(newNumber);
+                    //saveBalotas(newNumber);
                     i++;
                 }
             }
@@ -114,7 +112,7 @@ function generateNewCard(idPlayer) {
         newNumber = Math.round(Math.random()*(45-31)+parseInt(31));
         if (listN.length == 0) {
             listN.push(newNumber);
-            saveBalotas(newNumber);
+            //saveBalotas(newNumber);
             i++;
         }else{
                 do {
@@ -128,7 +126,7 @@ function generateNewCard(idPlayer) {
                 } while (count >= 1);
                 if (count == 0) {
                     listN.push(newNumber);
-                    saveBalotas(newNumber);
+                    //saveBalotas(newNumber);
                     i++;
                 }
             }
@@ -140,7 +138,7 @@ function generateNewCard(idPlayer) {
         newNumber = Math.round(Math.random()*(60-46)+parseInt(46));
         if (listG.length == 0) {
             listG.push(newNumber);
-            saveBalotas(newNumber);
+            //saveBalotas(newNumber);
             i++;
         }else{
                 do {
@@ -154,7 +152,7 @@ function generateNewCard(idPlayer) {
                 } while (count >= 1);
                 if (count == 0) {
                     listG.push(newNumber);
-                    saveBalotas(newNumber);
+                    //saveBalotas(newNumber);
                     i++;
                 }
             }
@@ -166,7 +164,7 @@ function generateNewCard(idPlayer) {
         newNumber = Math.round(Math.random()*(75-61)+parseInt(61));
         if (listO.length == 0) {
             listO.push(newNumber);
-            saveBalotas(newNumber);
+            //saveBalotas(newNumber);
             i++;
         }else{
                 do {
@@ -180,10 +178,25 @@ function generateNewCard(idPlayer) {
                 } while (count >= 1);
                 if (count == 0) {
                     listO.push(newNumber);
-                    saveBalotas(newNumber);
+                    //saveBalotas(newNumber);
                     i++;
                 }
             }
+    }
+    for (let index = 0; index < listB.length; index++) {
+        saveBalotas(listB[index]);
+    }
+    for (let index = 0; index < listI.length; index++) {
+        saveBalotas(listI[index]);
+    }
+    for (let index = 0; index < listN.length; index++) {
+        saveBalotas(listN[index]);
+    }
+    for (let index = 0; index < listG.length; index++) {
+        saveBalotas(listG[index]);
+    }
+    for (let index = 0; index < listO.length; index++) {
+        saveBalotas(listO[index]);
     }
 }
 

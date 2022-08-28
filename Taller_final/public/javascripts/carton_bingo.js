@@ -1,6 +1,5 @@
 const reloadPage = () => {
     let idLocalStorage = localStorage.getItem('id');
-    window.alert(idLocalStorage);
     getData(idLocalStorage);
 }
 
@@ -11,7 +10,6 @@ const getData = (idPlayer) => {
     const listN = new Array();
     const listG = new Array();
     const listO = new Array();
-    //window.alert("Se esta ejecutando la prueba");
     fetch(`http://localhost:9090/api/v1/playerBingo/${idPlayer}`).then((data) => {
         console.log(data);
         return data.json();

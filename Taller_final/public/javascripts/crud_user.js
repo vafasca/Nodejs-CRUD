@@ -27,7 +27,6 @@ const register = async () => {
                         //
                         createNewRoom();
                         getvals().then(response => {
-                            window.alert("tamanio del arreglo" + response.data.length);
                             for (let index = 0; index < response.data.length; index++) {
                                 var idd = response.data[index]._id;
 
